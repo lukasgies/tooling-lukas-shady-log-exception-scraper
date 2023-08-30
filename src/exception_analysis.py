@@ -32,6 +32,8 @@ if __name__ == "__main__":
     else:
         pattern_before_exception = default_pattern_before_exception
 
+    print(f"Log File: {log_file_path}\n")  # Print the log file name
+
     additional_info = extract_exceptions(log_file_path, pattern_before_exception)
     additional_info_counter = Counter(additional_info)
 
