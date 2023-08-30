@@ -4,7 +4,7 @@ from collections import Counter
 
 
 def extract_exceptions(log_file_path, pattern_before_exception):
-    additional_info = []
+    exceptions = []
 
     with open(log_file_path, 'r') as log_file:
         for line in log_file:
@@ -13,9 +13,9 @@ def extract_exceptions(log_file_path, pattern_before_exception):
                 exception_message = match.group(1)
                 exception_parts = exception_message.split(":")
                 if len(exception_parts) > 1:
-                    additional_info.append(':'.join(exception_parts[1:]))
+                    exceptions.append(':'.join(exception_parts[1:]))
 
-    return additional_info
+    return exceptions
 
 
 if __name__ == "__main__":
@@ -34,13 +34,13 @@ if __name__ == "__main__":
 
     print(f"Log File: {log_file_path}\n")  # Print the log file name
 
-    additional_info = extract_exceptions(log_file_path, pattern_before_exception)
-    additional_info_counter = Counter(additional_info)
+    exceptions = extract_exceptions(log_file_path, pattern_before_exception)
+    exceptions_counter = Counter(exceptions)
 
-    total_info = len(additional_info)
-    print(f"Total exceptions: {total_info}\n")
+    total_exceptions = len(exceptions)
+    print(f"Total exceptions: {total_exceptions}\n")
 
     print("Different exceptions and their counts (highest count first):")
-    sorted_info = sorted(additional_info_counter.items(), key=lambda x: x[1], reverse=True)
-    for info, count in sorted_info:
-        print(f"{count} - {info}")
+    sorted_exceptions = sorted(exceptions_counter.items(), key=lambda x: x[1], reverse=True)
+    for exception, count in sorted_exceptions:
+        print(f"{count} - {exception}")
